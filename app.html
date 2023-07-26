@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>App Name</title>
+    <title>List o Movie</title>
 
     <!-- Bootsstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -23,43 +23,45 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class=" container-fluid">
-            <a class="navbar-brand" href="index.html">
-                &nbsp;<img src="/img/ssmark.svg" height="30" alt="developer logo" />
-                &nbsp;App Name</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/app.html">The App</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/code.html">The Code</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/sschwartz7/Portfolio">The Repo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://schwartzwork.vercel.app/">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://schwartzwork.vercel.app/">Blog</a>
-                    </li>
-                </ul>
-            </div>
+                <a class="navbar-brand" href="index.html">
+                    &nbsp;<img src="/img/ssmark.svg" height="30" alt="developer logo" />
+                    &nbsp;List o Movie</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/app.html">The App</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/code.html">The Code</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/sschwartz7/Portfolio">The Repo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://schwartzwork.vercel.app/">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://schwartzwork.vercel.app/">Blog</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
     <main class="container py-3">
-        <h1>APP UI GOES HERE</h1>
-        <input class="form-control" id="message" placeholder="enter a message" type="text" />
-        <button class="btn btn-primary my-3" id="btnSubmit" type="button">Display Message</button>
+        <button class="btn btn-primary" onclick="displayMovies()">Get Movies</button>
+        <h1 class="text-center mt-5 display-3">Popular Movies</h1>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-3 justify-content-center justify-content-xl-start" id="movie-list">
+
+        </div>
     </main>
     <footer class="footer container-fluid py-3">
         <div class="container-fluid">
@@ -82,6 +84,21 @@
             </div>
         </div>
     </footer>
+
+    <template id="movie-card-template">
+        <div class="col">
+            <div class="card h-100">
+                <img class="card-img-top" alt="Movie Poster"/>
+                <div class="card-body border-top bg-light">
+                    <h5 id="movieTitle"></h5>
+                    <p class="card-text" id="movieDescription"></p>
+                </div>
+                <div class="card-footer text-end">
+                    <a href="#" class="btn btn-primary">More Info</a>
+                </div>
+            </div>
+        </div>
+    </template>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
@@ -89,11 +106,7 @@
     <!-- Sweet Alerts JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Custom JS-->
-    <script src="js/site.js"></script>
+    <script src="/JS/site.js"></script>
 
-    <script>
-        document.getElementById('btnSubmit').addEventListener('click', displayMessage);
-    </script>
 </body>
-
 </html>
