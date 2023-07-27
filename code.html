@@ -65,25 +65,85 @@
             <div class="col-lg-8">
                 <pre class="line-numbers">
                     <code class="language-js">
-                        function displayMessage(){
-                            let inputBox= document.getElementById('message');
-                            let message= inputBox.value;
-                        
-                            Swal.fire(
-                                {
-                                    backdrop: false,
-                                    title: 'List o Movie',
-                                    text: message
-                                }
-                              );
+                        const API_KEY= 'xxxxxxxxx';
+
+                        async function getMovies() {
+                          try {
+                            let response = await fetch('https://api.themoviedb.org/3/movie/popular', {
+                              headers: {
+                                'Authorization': `Bearer ${API_KEY}`
+                              }
+                            });
+                            let data = await response.json();
+                            return data;
+                          } catch (error) {
+                            console.error(error);
+                          }
                         }
+                        async function getMovie(movieId) {
+                          try {
+                            let response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}`, {
+                              headers: {
+                                'Authorization': `Bearer ${API_KEY}`
+                              }
+                            });
+                            let data = await response.json();
+                            return data;
+                          } catch (error) {
+                            console.error(error);
+                          }
+                        }
+                        
+                        
+                        async function displayMovies() {
+                          const movieListDiv = document.getElementById("movie-list");
+                          const moviePosterTemplate = document.getElementById('movie-card-template');
+                          let data = await getMovies();
+                          let movies = data.results;
+                          movies.forEach(movie => {
+                            let movieCard = moviePosterTemplate.content.cloneNode(true);
+                            let titleElement = movieCard.querySelector('.card-body > h5');
+                            let descriptionElement = movieCard.querySelector('.card-text');
+                            let posterElement = movieCard.querySelector('.card img');
+                            let infoButton = movieCard.querySelector('button.btn');
+                        
+                            titleElement.textContent = movie.title;
+                            descriptionElement.textContent = movie.overview;
+                            posterElement.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`);
+                            infoButton.setAttribute('data-movieId', movie.id);
+                        
+                            movieListDiv.appendChild(movieCard);
+                          });
+                        }
+                        
+                        
+                        async function displayModal(btn) {
+                          const movieModal = document.getElementById('movie-modal');
+                        
+                          let movieId = btn.getAttribute('data-movieId');
+                          let movie = await getMovie(movieId);
+                          let titleElement = movieModal.querySelector('.modal h5');
+                          let posterElement = movieModal.querySelector('.modal img');
+                          let descriptionElement = movieModal.querySelector('.modal p');
+                          let linkElement = movieModal.querySelector('.modal a');
+                        
+                          document.getElementById('genre').innerHTML = `&lt;strong>Genre:&lt;/strong>&lt;br/> ${movie.genres[0].name}`;
+                          document.getElementById('homepage').innerHTML = `&lt;strong>Homepage:&lt;/strong>&lt;br/> &lt;a href="${movie.homepage}">${movie.homepage}&lt;/a>`;
+                          document.getElementById('runtime').innerHTML = `&lt;strong>Runtime:&lt;/strong>&lt;br/> ${movie.runtime}`;
+                          document.getElementById('tagline').innerHTML = `&lt;strong>Tagline:&lt;/strong>&lt;br/> ${movie.tagline}`;
+                        
+                        
+                          titleElement.textContent = movie.title;
+                          descriptionElement.textContent = movie.overview;
+                          posterElement.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`);
+                          linkElement.setAttribute('href', `https://tmdb.org/movie/${movieId}`);
+                        }
+                        
                     </code>
                 </pre>
             </div>
             <div class="col-lg-4">
-                <p>There is one function</p>
-                <h5>displayMessage</h5>
-                <p>Shows a SweetAlert with the value of the <code>message</code> varialebe</p>
+                
             </div>
         </div>
     </main>
