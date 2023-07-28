@@ -72,5 +72,10 @@ async function displayModal(btn) {
   linkElement.setAttribute('href', `https://tmdb.org/movie/${movieId}`);
 }
 
-
+function toHoursAndMinutes(totalMinutes) {
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  let length = hours + "h" + minutes + "m";
+  return length;
+}
 
